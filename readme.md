@@ -49,7 +49,7 @@ Open browser and type following URL
 ``` 
 http://localhost:8080/swagger-ui.html
 ```    
- #### registration (POST) 
+ #### /registration (POST) 
  Click on API and click on Try it out.
  Add request param.
  ```
