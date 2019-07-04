@@ -2,9 +2,9 @@
   
 # User Management 
 Purpose of the application is to manage users with following functionality.
-Registration
-Authentication
-Reset Password
+1. Registration
+2. Authentication
+3. Reset Password
     
 ## Getting Started    
  These instructions will get you a copy of the project up and running on your local machine.    
