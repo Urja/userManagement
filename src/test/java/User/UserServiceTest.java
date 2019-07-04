@@ -28,7 +28,7 @@ public class UserServiceTest {
     private UserServiceImpl userService;
 
     @Before
-    public  void setUp(){
+    public void setUp() {
         User user = new User();
         user.setId(1L);
         user.setFullName("Urja Ramanandi");
@@ -38,7 +38,7 @@ public class UserServiceTest {
         Mockito.when(userRepository.save(Matchers.any())).thenReturn(user);
     }
 
-    @Test (expected = Exception.class)
+    @Test(expected = Exception.class)
     @Order(1)
     public void changePasswordWithInvalidEmail() throws Exception {
         ResetPasswordRequest resetPasswordRequest = new ResetPasswordRequest();
@@ -73,9 +73,9 @@ public class UserServiceTest {
         userService.resetPassword(resetPasswordRequest);
     }
 
-    @Test (expected = Exception.class)
+    @Test(expected = Exception.class)
     @Order(4)
-    public void changePasswordWithvalidOldPassword() throws  Exception{
+    public void changePasswordWithvalidOldPassword() throws Exception {
         ResetPasswordRequest resetPasswordRequest = new ResetPasswordRequest();
         resetPasswordRequest.setEmail("urja");
         resetPasswordRequest.setNewPassword("test");

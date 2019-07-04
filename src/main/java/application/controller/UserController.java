@@ -24,30 +24,28 @@ public class UserController {
             @ApiResponse(code = 201, message = "User Registered successfully for ${userId}")
     })
     @PostMapping
-    public ResponseEntity<String> registration(@RequestBody RegistrationRequest registrationRequest){
-       long userId = userService.registration(registrationRequest);
+    public ResponseEntity<String> registration(@RequestBody RegistrationRequest registrationRequest) {
+        long userId = userService.registration(registrationRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body("User Registered successfully for" + userId); //TODO: Send url instead
     }
 
 
     @PostMapping("/authenticate")
-    public ResponseEntity authenticate(@RequestBody AuthenticationRequest authenticationRequest){
+    public ResponseEntity authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
         try {
             userService.authenticate(authenticationRequest);
             return new ResponseEntity(HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(e.getLocalizedMessage());
         }
     }
 
     @PutMapping("/reset-password")
-    public ResponseEntity<String> resetPassWord(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest){
-        try{
+    public ResponseEntity<String> resetPassWord(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest) {
+        try {
             userService.resetPassword(resetPasswordRequest);
             return new ResponseEntity(HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(e.getLocalizedMessage());
         }
     }

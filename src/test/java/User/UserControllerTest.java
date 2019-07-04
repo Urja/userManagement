@@ -38,9 +38,9 @@ public class UserControllerTest {
     @Test
     @Order(1)
     public void registration() throws Exception {
-        String input =" {" +
-                "\"email\" : \"registration@test.com\","+
-                "\"password\":\"regTest\","+
+        String input = " {" +
+                "\"email\" : \"registration@test.com\"," +
+                "\"password\":\"regTest\"," +
                 "\"fullName\" : \"Test User\"} ";
 
         when(userService.registration(Matchers.any())).thenReturn(1L);
@@ -52,9 +52,9 @@ public class UserControllerTest {
     @Test
     @Order(2)
     public void resetPassword() throws Exception {
-        String input =" {" +
-                "\"email\" : \"registration@test.com\","+
-                "\"oldPassword\":\"reg\","+
+        String input = " {" +
+                "\"email\" : \"registration@test.com\"," +
+                "\"oldPassword\":\"reg\"," +
                 "\"newPassword\" : \"regTest\"} ";
 
         doNothing().when(userService).resetPassword(Matchers.any());
@@ -65,8 +65,8 @@ public class UserControllerTest {
 
     @Test
     public void authentcationSucessfull() throws Exception {
-        String input =" {" +
-                "\"email\" : \"registration@test.com\","+
+        String input = " {" +
+                "\"email\" : \"registration@test.com\"," +
                 "\"password\":\"regTest\"} ";
 
         when(userService.authenticate(Matchers.any())).thenReturn(true);
@@ -77,8 +77,8 @@ public class UserControllerTest {
 
     @Test
     public void authentcationInvalidPassword() throws Exception {
-        String input =" {" +
-                "\"email\" : \"registration@test.com\","+
+        String input = " {" +
+                "\"email\" : \"registration@test.com\"," +
                 "\"password\":\"invalid\"} ";
 
         when(userService.authenticate(Matchers.any())).thenThrow(Exception.class);
@@ -89,8 +89,8 @@ public class UserControllerTest {
 
     @Test
     public void authentcationInvalidEmail() throws Exception {
-        String input =" {" +
-                "\"email\" : \"invalid@test.com\","+
+        String input = " {" +
+                "\"email\" : \"invalid@test.com\"," +
                 "\"password\":\"regTest\"} ";
 
         when(userService.authenticate(Matchers.any())).thenThrow(Exception.class);

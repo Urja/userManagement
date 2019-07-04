@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
                 resetPasswordRequest.getEmail()
                 , resetPasswordRequest.getOldPassword());
 
-        if(isValidUser(authenticationRequest)) {
+        if (isValidUser(authenticationRequest)) {
             User user = findUserByEmail(resetPasswordRequest.getEmail()).get();
             user.setPassword(resetPasswordRequest.getNewPassword());
             userRepository.save(user);
