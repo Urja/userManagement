@@ -1,8 +1,10 @@
 package User;
 
-import dto.RegistrationRequest;
-import dto.ResetPasswordRequest;
-import entity.User;
+import application.dto.RegistrationRequest;
+import application.dto.ResetPasswordRequest;
+import application.entity.User;
+import application.repository.UserRepository;
+import application.service.Impl.UserServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +15,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.core.annotation.Order;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import repository.UserRepository;
-import service.Impl.UserServiceImpl;
 
 import java.util.Optional;
 
@@ -34,16 +34,16 @@ public class UserServiceTest {
         user.setFullName("Urja Ramanandi");
         user.setEmail("sysadmin@test.com");
         user.setPassword("test");
-        Mockito.when(userRepository.findByUserName(Matchers.anyString())).thenReturn(Optional.of(user));
+        Mockito.when(userRepository.findByEmail(Matchers.anyString())).thenReturn(Optional.of(user));
         Mockito.when(userRepository.save(Matchers.any())).thenReturn(user);
     }
 
     @Test (expected = Exception.class)
     @Order(1)
-    public void changePasswordWithInvalidUserName() throws Exception {
+    public void changePasswordWithInvalidEmail() throws Exception {
         ResetPasswordRequest resetPasswordRequest = new ResetPasswordRequest();
         resetPasswordRequest.setEmail("invalidUser");
-        resetPasswordRequest.setNewPassWord("test");
+        resetPasswordRequest.setNewPassword("test");
         resetPasswordRequest.setOldPassword("testOld");
 
         userService.resetPassword(resetPasswordRequest);
@@ -57,17 +57,17 @@ public class UserServiceTest {
         user.setEmail("sysadmin@test.com");
         user.setPassword("test");
 
-        userService.create(user);
+        userService.registration(user);
 
-        Assert.assertEquals(userService.findUserByUsername(user.getEmail()).get().getEmail(), "sysadmin@test.com");
+        Assert.assertEquals(userService.findUserByEmail(user.getEmail()).get().getEmail(), "sysadmin@test.com");
     }
 
     @Test
     @Order(3)
-    public void changePasswordWithvalidUserNamePassword() throws Exception {
+    public void changePasswordWithvalidEmailPassword() throws Exception {
         ResetPasswordRequest resetPasswordRequest = new ResetPasswordRequest();
         resetPasswordRequest.setEmail("urja");
-        resetPasswordRequest.setNewPassWord("testNew");
+        resetPasswordRequest.setNewPassword("testNew");
         resetPasswordRequest.setOldPassword("test");
 
         userService.resetPassword(resetPasswordRequest);
@@ -78,7 +78,7 @@ public class UserServiceTest {
     public void changePasswordWithvalidOldPassword() throws  Exception{
         ResetPasswordRequest resetPasswordRequest = new ResetPasswordRequest();
         resetPasswordRequest.setEmail("urja");
-        resetPasswordRequest.setNewPassWord("test");
+        resetPasswordRequest.setNewPassword("test");
         resetPasswordRequest.setOldPassword("invalid");
 
         userService.resetPassword(resetPasswordRequest);

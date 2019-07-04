@@ -1,4 +1,4 @@
-package dto;
+package application.dto;
 
 import javax.validation.constraints.NotBlank;
 
@@ -8,7 +8,7 @@ public class ResetPasswordRequest {
     private String email;
 
     @NotBlank
-    private String newPassWord;
+    private String newPassword;
 
     @NotBlank
     private String oldPassword;
@@ -21,12 +21,12 @@ public class ResetPasswordRequest {
         this.email = email;
     }
 
-    public String getNewPassWord() {
-        return newPassWord;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setNewPassWord(String newPassWord) {
-        this.newPassWord = newPassWord;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public String getOldPassword() {

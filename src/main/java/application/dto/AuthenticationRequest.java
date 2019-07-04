@@ -1,4 +1,4 @@
-package dto;
+package application.dto;
 
 public class AuthenticationRequest {
 
@@ -6,6 +6,8 @@ public class AuthenticationRequest {
         this.email = email;
         this.password = password;
     }
+
+    AuthenticationRequest(){}
 
     private String email;
     private String password;

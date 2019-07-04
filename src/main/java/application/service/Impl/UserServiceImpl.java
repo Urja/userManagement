@@ -1,13 +1,13 @@
-package service.Impl;
+package application.service.Impl;
 
-import dto.AuthenticationRequest;
-import dto.RegistrationRequest;
-import dto.ResetPasswordRequest;
-import entity.User;
+import application.dto.AuthenticationRequest;
+import application.dto.RegistrationRequest;
+import application.dto.ResetPasswordRequest;
+import application.entity.User;
+import application.repository.UserRepository;
+import application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.UserRepository;
-import service.UserService;
 
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public long create(RegistrationRequest registrationRequest) {
+    public long registration(RegistrationRequest registrationRequest) {
         User user = new User();
         user.setFullName(registrationRequest.getFullName());
         user.setEmail(registrationRequest.getEmail());
@@ -38,18 +38,18 @@ public class UserServiceImpl implements UserService {
                 , resetPasswordRequest.getOldPassword());
 
         if(isValidUser(authenticationRequest)) {
-            User user = findUserByUsername(resetPasswordRequest.getEmail()).get();
-            user.setPassword(resetPasswordRequest.getNewPassWord());
+            User user = findUserByEmail(resetPasswordRequest.getEmail()).get();
+            user.setPassword(resetPasswordRequest.getNewPassword());
             userRepository.save(user);
         }
     }
 
-    public Optional<User> findUserByUsername(String userName) {
-        return userRepository.findByUserName(userName);
+    public Optional<User> findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     private boolean isValidUser(AuthenticationRequest authenticationRequest) throws Exception {
-        Optional<User> user = findUserByUsername(authenticationRequest.getEmail());
+        Optional<User> user = findUserByEmail(authenticationRequest.getEmail());
         if (user.isPresent() && user.get().getPassword().equals(authenticationRequest.getPassword())) {
             return true;
         }

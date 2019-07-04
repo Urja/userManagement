@@ -1,4 +1,4 @@
-package dto;
+package application.dto;
 
 public class RegistrationRequest {
     private String fullName;

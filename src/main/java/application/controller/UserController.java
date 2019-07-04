@@ -1,13 +1,13 @@
-package controller;
+package application.controller;
 
-import dto.AuthenticationRequest;
-import dto.RegistrationRequest;
-import dto.ResetPasswordRequest;
+import application.dto.AuthenticationRequest;
+import application.dto.RegistrationRequest;
+import application.dto.ResetPasswordRequest;
+import application.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.Impl.UserServiceImpl;
 
 import javax.validation.Valid;
 
@@ -19,13 +19,13 @@ public class UserController {
     UserServiceImpl userService;
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestParam RegistrationRequest registrationRequest){
-       long userId = userService.create(registrationRequest);
+    public ResponseEntity<String> registration(@RequestBody RegistrationRequest registrationRequest){
+       long userId = userService.registration(registrationRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body("User Registered sucessfully for" + userId); //TODO: Send url instead
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity authenticate(@RequestParam AuthenticationRequest authenticationRequest){
+    public ResponseEntity authenticate(@RequestBody AuthenticationRequest authenticationRequest){
         try {
             userService.authenticate(authenticationRequest);
             return new ResponseEntity(HttpStatus.OK);
@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @PutMapping("/reset-password")
-    public ResponseEntity<String> resetPassWord(@Valid @RequestParam ResetPasswordRequest resetPasswordRequest){
+    public ResponseEntity<String> resetPassWord(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest){
         try{
             userService.resetPassword(resetPasswordRequest);
             return new ResponseEntity(HttpStatus.OK);
